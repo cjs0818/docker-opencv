@@ -1,17 +1,28 @@
-FROM 	ubuntu:16.04
+#FROM 	ubuntu:16.04
+FROM 	nvidia/cuda
+
+# generate /root/work directory
+WORKDIR /root/work
+
+# copy .bashrc from host to target /root directory
+ADD .bashrc /root
+
+# OpenCV version
+ENV OPENCV_VERSION="3.4.0"
+
 
 RUN 	apt-get update && \
 	apt-get upgrade -y && \
-	apt-get install -y --no-install-recommends python python-dev python-pip build-essential cmake git pkg-config libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev libgtk2.0-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libatlas-base-dev gfortran libavresample-dev libgphoto2-dev libgstreamer-plugins-base1.0-dev libdc1394-22-dev  && \
+	apt-get install -y --no-install-recommends python python-dev python-pip build-essential cmake git pkg-config libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev libgtk2.0-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libatlas-base-dev gfortran libavresample-dev libgphoto2-dev libgstreamer-plugins-base1.0-dev libdc1394-22-dev  vim && \
 	pip install numpy && \
 	cd /opt && \
 	git clone https://github.com/opencv/opencv_contrib.git && \
 	cd opencv_contrib && \
-	git checkout 3.4.0 && \	
+	git checkout ${OPENCV_VERSION} && \	
 	cd /opt && \
 	git clone https://github.com/opencv/opencv.git && \
 	cd opencv && \
-	git checkout 3.4.0 && \
+	git checkout ${OPENCV_VERSION} && \
 	mkdir build && \
 	cd build && \
 	cmake 	-D CMAKE_BUILD_TYPE=RELEASE \

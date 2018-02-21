@@ -15,7 +15,7 @@ cp /root/work/CuDNN/cuda/lib64/libcudnn* /usr/local/cuda/lib64
 chmod a+r /usr/local/cuda/include/cudnn.h
 
 #echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf
-#ldconfig
+ldconfig
 #---------------------------------
 
 fi
